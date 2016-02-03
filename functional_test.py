@@ -64,8 +64,6 @@ class NewVisitorTest(unittest.TestCase):
 		# Both items are present on the list.
 		self.check_for_row_in_list_table(correct_strings[1])
 
-		self.fail('Finish the test!')
-
 		# The site has generated a unique URL for the user.
 		#
 		# The user goes to the great user place in the sky. Browser quits.
