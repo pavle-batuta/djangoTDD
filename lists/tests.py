@@ -1,8 +1,8 @@
 from django.core.urlresolvers import resolve
 from django.test import TestCase
 from django.http import HttpRequest
+from django.http import HttpResponse
 from django.template.loader import render_to_string
-
 from lists.views import home_page
 
 class HomePageTest(TestCase):
@@ -16,5 +16,25 @@ class HomePageTest(TestCase):
 		request = HttpRequest()
 		response = home_page(request)
 		expected_html = render_to_string('home.html')
+		self.assertEqual(response.content.strip().decode(), expected_html)
+
+	def test_home_page_can_save_a_POST_request(self):
+		# Create a new http request of POST type, that has
+		# item_text attribute and pass it to the home page
+		# home page response should contain the updated text
+		# in the html!
+		request = HttpRequest()
+		request.method = 'POST'
+		request.POST['item_text'] = 'A new list item'
+
+		response = home_page(request)
+
+		# For comparison, render the html page as string
+		# Replace the template variables with test values
+		expected_html = render_to_string(
+			'home.html',
+			{'new_item_text': 'A new list item'}
+		)
 		self.assertEqual(response.content.decode(), expected_html)
-	
+
+
