@@ -3,6 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
 import unittest
+import time
 
 class NewVisitorTest(LiveServerTestCase):
 	"""Test case for a new visitor"""
@@ -34,7 +35,6 @@ class NewVisitorTest(LiveServerTestCase):
 			'1: Buy milk',
 		]
 
-		print(user_1_test_strings[0])
 		# Check out the homepage
 		self.browser.get(self.live_server_url)
 
@@ -82,7 +82,7 @@ class NewVisitorTest(LiveServerTestCase):
 		## Make sure no information from the previous user is corrupting the
 		# new users experience (cookies etc) ##
 		self.browser.quit()
-		slef.browser = webdriver.Firefox()
+		self.browser = webdriver.Firefox()
 
 		# A new user is spawned!
 		# User visits the homepage
@@ -94,6 +94,7 @@ class NewVisitorTest(LiveServerTestCase):
 
 		# The user#2 is a boring man named Ted. Ted want's to buy milk because
 		# he has nothing better to do. Get a hold of yourself Ted!
+		inputbox = self.browser.find_element_by_id('id_new_item')
 		inputbox.send_keys(user_2_test_strings[0])
 		# The user hits enter.
 		inputbox.send_keys(Keys.ENTER)
