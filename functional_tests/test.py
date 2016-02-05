@@ -116,4 +116,30 @@ class NewVisitorTest(LiveServerTestCase):
 		# He is happy there.
 		# The milks stays unbought.
 		# All is well.
+		# 
+	
+	def test_layout_and_styling(self):
+		# Caveman Zogg visits the homepage
+		self.browser.get(self.live_server_url)
+		self.browser.set_window_size(1024, 768)
 
+		# Caveman notices the input box is nicely centered
+		inputbox = self.browser.find_element_by_id('id_new_item')
+
+		## Should be on the middle of the screen (1024/2=512)
+		# with a variance +/- 5px. ##
+		self.assertAlmostEqual(
+			inputbox.location['x'] + inputbox.size['width'] / 2,
+			512,
+			delta=5
+		)
+
+		# Caveman enters "rock".
+		inputbox.send_keys('rock\n')
+
+		inputbox = self.browser.find_element_by_id('id_new_item')
+		self.assertAlmostEqual(
+			inputbox.location['x'] + inputbox.size['width'] / 2,
+			512,
+			delta=5
+		)

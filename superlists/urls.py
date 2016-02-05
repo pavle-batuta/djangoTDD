@@ -6,4 +6,3 @@ urlpatterns = patterns('',
     url(r'^lists/', include('lists.urls')),
     # url(r'^admin/', include(admin.site.urls)),
 )
-
